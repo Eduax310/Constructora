@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends 'base.html' %}
+
+    {% block title %}Actualizar Proyecto{% endblock %}
+    {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Proyectos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            background-color: #ffffff;
+            color: #fff;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin-top: 7%;
+            flex-direction: column;
+            display: flex;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f39c12;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h1::before {
+            content: "\f0f7"; /* Font Awesome icon for construction */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -50px;
+            font-size: 50px;
+            color: #f39c12;
+        }
+
+        .select-project {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .select-project label {
+            font-weight: bold;
+            color: #f1c40f;
+        }
+
+        .select-project select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .details {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .details label {
+            display: block;
+            font-weight: bold;
+            color: #f1c40f;
+            margin-top: 10px;
+        }
+
+        .details input, .details textarea, .details select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            box-sizing: border-box;
+        }
+
+        .details textarea {
+            resize: none;
+        }
+
+        .form {
+            width: 100%;
+        }
+
+        .form-group {
+            flex-direction: column;
+            display: flex;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #f39c12;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn:hover {
+            background: #e67e22;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            background: #34495e;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #2c3e50;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box; /* Esto asegura que el padding no afecte el tamaño del input */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br>
+        <h1>Actualizar Proyectos</h1>
+        <div class="select-project">
+            <label for="project-list">Selecciona un Proyecto:</label>
+            <select id="project-list" onchange="fetchProjectDetails()">
+                <option value="">-- Seleccionar Proyecto --</option>
+                {% for proyecto in proyectos %}
+                <option value="{{ proyecto.ID }}">{{ proyecto.Nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <form id="update-form" method="POST" action="/proyectos/actualizar">
+            <div class="details">
+                <input type="hidden" id="project-id" name="id">
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
+
+                <label for="tipo_proyecto">Tipo de Proyecto:</label>
+                <input type="text" id="tipo_proyecto" name="tipo_proyecto">
+
+                <label for="condiciones_terreno">Condiciones del Terreno:</label>
+                <textarea id="condiciones_terreno" name="condiciones_terreno"></textarea>
+
+                <label for="tamaño_terreno">Tamaño del Terreno (m²):</label>
+                <input type="number" id="tamaño_terreno" name="tamaño_terreno" step="0.01">
+
+                <label for="numero_trabajadores">Número de Trabajadores:</label>
+                <input type="number" id="numero_trabajadores" name="numero_trabajadores">
+
+                <label for="tiempo_estimado">Tiempo Estimado (días):</label>
+                <input type="number" id="tiempo_estimado" name="tiempo_estimado">
+
+                <label for="porcentaje_ganancia">Porcentaje de Ganancia (%):</label>
+                <input type="number" id="porcentaje_ganancia" name="porcentaje_ganancia" step="0.01">
+
+                <label for="costo_total">Costo Total (L):</label>
+                <input type="number" id="costo_total" name="costo_total" step="0.01">
+
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado">
+
+                <label for="supervisor_id">Supervisor:</label>
+                <select id="supervisor_id" name="supervisor_id" required>
+                    {% for supervisor in supervisores %}
+                    <option value="{{ supervisor.ID }}">{{ supervisor.Nombre }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="ingresos_estimados">Ingresos Estimados (L):</label>
+                <input type="number" id="ingresos_estimados" name="ingresos_estimados" step="0.01">
+            </div>
+            <button type="submit" class="btn">Actualizar Proyecto</button>
+        </form>
+        <a href="/menu_proyectos" class="btn-back">Volver al Menú</a>
+    </div>
+
+    <script>
+        function fetchProjectDetails() {
+            const projectId = document.getElementById('project-list').value;
+
+            if (projectId) {
+                fetch(`/proyectos/detalles/${projectId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('project-id').value = projectId;
+                        document.getElementById('nombre').value = data.Nombre;
+                        document.getElementById('tipo_proyecto').value = data.TipoProyecto;
+                        document.getElementById('condiciones_terreno').value = data.CondicionesTerreno;
+                        document.getElementById('tamaño_terreno').value = data.TamañoTerreno;
+                        document.getElementById('numero_trabajadores').value = data.NumeroTrabajadores;
+                        document.getElementById('tiempo_estimado').value = data.TiempoEstimado;
+                        document.getElementById('porcentaje_ganancia').value = data.PorcentajeGanancia;
+                        document.getElementById('costo_total').value = data.CostoTotal;
+                        document.getElementById('estado').value = data.Estado;
+                        document.getElementById('supervisor_id').value = data.Supervisor;
+                        document.getElementById('ingresos_estimados').value = data.IngresosEstimados;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

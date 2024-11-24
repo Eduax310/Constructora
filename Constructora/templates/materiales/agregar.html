@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% extends 'base.html' %}
+
+{% block title %}Agregar Material{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='addM_styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Nuevo Material</h1>
+
+    <form action="{{ url_for('materiales.material_agregar_post') }}" method="POST">
+        <div>
+            <label for="nombre">Nombre del Material:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div>
+            <label for="proveedor">Proveedor:</label>
+            <select name="proveedor" id="proveedor" required>
+                {% for prov in proveedores %}
+                    <option value="{{ prov[0] }}">{{ prov[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="precio_unitario">Precio Unitario:</label>
+            <input type="number" step="0.01" id="precio_unitario" name="precio_unitario" min="0" required>
+        </div>
+
+        <div>
+            <button type="submit">Agregar Material</button>
+            <a href="{{ url_for('materiales.material_index') }}">Volver</a>
+        </div>
+    </form>
+</body>
+{% endblock %}

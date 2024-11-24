@@ -2,64 +2,64 @@
 <html lang="en">
 {% extends 'base.html' %}
 
-{% block title %}Listado de Usuarios{% endblock %}
+{% block title %}Listado de Proveedores{% endblock %}
 {% block content %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Usuarios</title>
+    <title>Listado de Proveedores</title>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2>Listado de Usuarios</h2>
+            <h2>Listado de Proveedores</h2>
         </div>
         <br>
         <div class="buttons-container">
-            <a href="/Usuarios/agregar" class="button">
+            <a href="/Proveedores/agregar" class="button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 5v14M5 12h14"></path>
                 </svg>
-                Nuevo Usuario
-            </a>
-            <a href="/Roles/index" class="button">
-                Roles
+                Nuevo Proveedor
             </a>
         </div>
         <table>
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th>ID</th>
-                    <th>Nombre</th>
+                    <th>ID Proveedor</th>
+                    <th>Nombre del Proveedor</th>
+                    <th>Contacto</th>
+                    <th>Telefono</th>
                     <th>Email</th>
-                    <th>Contraseña</th>
-                    <th>Rol</th>
+                    <th>Dirección</th>
                 </tr>    
             </thead>
             <tbody>
-                {% for usu in lista %}
+                {% for prov in lista %}
                 <tr>
                     <td>
-                        <a href="/Usuarios/editar/{{ usu[0] }}" class="button small">
+                       <a href="/Proveedores/editar/{{ prov[0] }}" class="button small">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M19 12H5"></path>
                                 <path d="M12 19l-7-7 7-7" fill="none"></path>
                             </svg>
                            Editar
                        </a>
-                       <a href="/Usuarios/eliminar/{{ usu[0] }}" class="button small">
+                       <a href="/Proveedores/eliminar/{{ prov[0] }}" class="button small">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                <path d="M6 18L18 6M6 6l12 12"></path>
                            </svg>
                            Eliminar
                        </a>
                     </td>
-                    <td>{{ usu[0] }}</td>
-                    <td>{{ usu[1] }}</td>
-                    <td>{{ usu[2] }}</td>
-                    <td>{{ usu[3] }}</td>
-                    <td>{{ usu[4] }}</td>
+                    <td>{{ prov[0] }}</td>
+                    <td>{{ prov[1] }}</td>
+                    <td>{{ prov[2] }}</td>
+                    <td>{{ prov[3] }}</td>
+                    <td>{{ prov[4] }}</td>
+                    <td>{{ prov[5] }}</td>
                 </tr>
                 {% endfor %}          
             </tbody>

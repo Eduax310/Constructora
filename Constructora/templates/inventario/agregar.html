@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% extends 'base.html' %}
+
+    {% block title %}Agregar Material Inventario{% endblock %}
+    {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_inventario.css') }}">
+    <style>
+        
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>') no-repeat right 10px center;
+            background-color: #fff;
+            background-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agregar Material al Inventario</h1>
+    
+
+    <form action="{{ url_for('inventario.inventario_agregar') }}" method="POST">
+        <label for="material_id">Material ID:</label>
+        <select id="material_id" name="material_id" required oninput="filterOptions(this)">
+            <option value="">Seleccionar...</option>
+            {% for material in materiales %}
+                <option value="{{ material[0] }}">{{ material[0] }} - {{ material[1] }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="cantidad_disponible">Cantidad Disponible:</label>
+        <input type="number" id="cantidad_disponible" min="0" name="cantidad_disponible" required><br>
+
+        <label for="umbral_minimo">Umbral Mínimo:</label>
+        <input type="number" id="umbral_minimo" min="0" name="umbral_minimo" required><br>
+
+        <button type="submit">Agregar</button>
+    </form>
+
+    <div class="centrado">
+        <a href="{{ url_for('inventario.inventario_index') }}" class="volver">Volver</a>
+    </div>
+
+    <script>
+        function filterOptions(selectElement) {
+            const filter = selectElement.value.toLowerCase();
+            const options = selectElement.options;
+
+            for (let i = 1; i < options.length; i++) {
+                const text = options[i].textContent || options[i].innerText;
+                options[i].style.display = text.toLowerCase().includes(filter) ? '' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+{%endblock%}

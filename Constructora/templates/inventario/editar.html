@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% extends 'base.html' %}
+
+    {% block title %}Editar Material Inventario{% endblock %}
+    {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_inventario.css') }}">
+    <style>
+        .btvolver {
+            display: block; /* Esto permite centrar como un bloque */
+            margin: 20px auto; /* Centrar horizontalmente con auto */
+            text-align: center; /* Asegura que el texto dentro del enlace esté centrado */
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Material del Inventario</h1>
+    <form action="{{ url_for('inventario.inventario_editar', id=inventario[0]) }}" method="POST">
+        <label for="material_id">Material ID:</label>
+        <input type="text" id="material_id" name="material_id" value="{{ inventario[1] }}" required><br>
+
+        <label for="cantidad_disponible">Cantidad Disponible:</label>
+        <input type="number" id="cantidad_disponible" name="cantidad_disponible" value="{{ inventario[2] }}" required><br>
+
+        <label for="umbral_minimo">Umbral:</label>
+        <input type="number" id="umbral_minimo" name="umbral_minimo" value="{{ inventario[3] }}" required><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a class="btvolver" href="{{ url_for('inventario.inventario_index') }}">Volver</a>
+</body>
+</html>
+{%endblock%}

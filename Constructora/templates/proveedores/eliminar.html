@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block title %}Agregar Usuarios{% endblock %}
-    {% block content %}
+{% block title %}Eliminar Proveedores{% endblock %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Rol</title>
+    <title>Eliminar Proveedor</title>
     <style>
         .container {
             width: 90%;
@@ -43,7 +43,9 @@
             font-weight: bold;
         }
     
-        input[type="text"]{
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
             width: 98%; /* Llenan todo el espacio del contenedor */
             padding: 10px;
             font-size: 1em;
@@ -85,30 +87,48 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Agregar Rol</h2>
+            <h2>Eliminar Proveedor</h2>
         </div>
-        <form method="post">
+        <br>
+        <form method="post" action="/Proveedores/eliminar/{{ prov[0] }}">
             <div class="form-group">
-                <label for="rol">Rol</label>
-                <input type="text" name="rol" id="rol" required>    
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" value="{{ prov[1] }}" disabled="true">
+            </div>
+            <div class="form-group">
+                <label for="contacto">Contacto</label>
+                <input type="text" name="contacto" value="{{ prov[2] }}" disabled="true">
+            </div>
+            <div class="form-group">
+                <label for="telefono">Telefono</label>
+                <input type="text" name="telefono" value="{{ prov[3] }}" disabled="true">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" value="{{ prov[4] }}" disabled="true">
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" value="{{ prov[5] }}" disabled="true">
+            </div>
+        
+            <div class="buttons-container">
+                <button type="submit" class="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Eliminar
+                </button>
+                <a href="/Proveedores/index" class="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5"></path>
+                            <path d="M12 19l-7-7 7-7" fill="none"></path>
+                        </svg>  
+                    Volver
+                </a>
             </div>
         </form>
-        <div class="buttons-container">
-            <button type="submit" class="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5v14M5 12h14"></path>
-                </svg>
-                Guardar
-            </button>
-            <a href="/Roles/index" class="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5"></path>
-                    <path d="M12 19l-7-7 7-7" fill="none"></path>
-                </svg>                    
-                Volver
-            </a>
-        </div> 
     </div>
 </body>
 </html>
-{%endblock%}
+{% endblock %}
